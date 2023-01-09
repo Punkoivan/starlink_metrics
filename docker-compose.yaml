@@ -13,6 +13,7 @@ services:
       - '--web.enable-lifecycle'
     volumes:
       - ./prometheus.yaml:/etc/prometheus/prometheus.yml:ro
+      -  ./prom_data:/prometheus
 
   grafana:
     image: grafana/grafana

@@ -13,5 +13,6 @@ Usage:
 Default settings:
 1. Starlink URL `http:dishy.starlink.com:9200`
 2. Retention for prometheus: 1 week
-3. Scrape interval: 15 seconds 
+3. Scrape interval: 15 seconds
+4. Prometheus persistent directory: ./prom_data
 4. Grafana's creds admin/12345
