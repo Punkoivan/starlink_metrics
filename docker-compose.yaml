@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  exporter:
+    image: ghcr.io/ewilken/starlink-exporter:latest
+    environment:
+      - STARLINK_ADDRESS=http://dishy.starlink.com:9200
+  prometheus:
+    image: "prom/prometheus"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=1w'
+      - '--web.enable-lifecycle'
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yml:ro
+
+  grafana:
+    image: grafana/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=12345
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    volumes:
+      - ./datasources:/etc/grafana/provisioning/datasources/
+      - ./dashboards:/etc/grafana/provisioning/dashboards/
